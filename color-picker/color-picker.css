@@ -1,0 +1,17 @@
+.color-picker > label {
+    height: var(--toggle-height);
+    width: var(--toggle-height);
+    border-radius: var(--toggle-border-radius);
+}
+.color-picker > label > input {
+    display: none;
+}
+.color-picker > label.blue {
+    background-color: var(--blue-darker);
+}
+.color-picker > label.green {
+    background-color: var(--green-darker);
+}
+.color-picker > label.red {
+    background-color: var(--red-darker);
+}
