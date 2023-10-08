@@ -19,12 +19,12 @@ $count = $statement->rowCount();
 
 if ($response != null) {
     foreach($response as $item) {
-        $user_id = $item['id'];
+        $userid = $item['id'];
         $user = htmlspecialchars($item['username']);
         if(password_verify($password, $item['password'])){
             session_start();
-            $_SESSION['user_id'] = $user_id;
             $_SESSION['user'] = $user;
+            $_SESSION['userid'] = $userid;
         
             $message = 'Erfolgreich eingeloggt.';
             $json = '{

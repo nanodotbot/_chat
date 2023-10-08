@@ -16,7 +16,7 @@ const getData = () => {
                 date = date.toLocaleString('de-CH');
 
                 $('#posts').append(
-                '<div class="post"><div class="meta"><p>' + element.user + '</p><p>' + day + ', ' + date + '</p></div><p>' + element.message + '</p></div><hr>');
+                '<div class="post"><div class="meta"><p>' + element.username + '</p><p>' + day + ', ' + date + '</p></div><p>' + element.message + '</p></div><hr>');
             });
         }
     )

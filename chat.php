@@ -17,7 +17,7 @@ if (isset($_SESSION['user'])){
     <script src="./jquery-3.7.1.js" defer></script>
     <script src="./chat.js" defer></script>
 
-    <script src="./_textarea/textarea.js" defer></script>
+    <script src="./textarea/textarea.js" defer></script>
 
     <script src="./theme-modal.js" defer></script>
     <script src="./toggle-mode/toggle-mode.js" defer></script>
