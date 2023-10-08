@@ -385,14 +385,17 @@ button.link {
     font-style: normal;
     line-height: 0;
     text-decoration: none;
+    background-color: var(--link-bg);
 
     transition: var(--transition-fast);
 
-    background-color: var(--link-bg);
-
     cursor: context-menu;
 }
-button.link:hover {
+button.link > span {
+    color: var(--link-text);
+    background-color: var(--link-bg);
+}
+button.link:hover > span {
     color: var(--link-hover-text);
     background-color: var(--link-hover-bg);
 }

@@ -57,21 +57,40 @@ btn.on('click',
             }
             data = JSON.stringify(data);
             if (loginActive) {
-            $.post('./login.php', data,
-                function (data, status) {
-                    if(status === 'success') {
+                $.post('./login.php', data,
+                    function (data, status) {
                         console.log(status);
-                        console.log(JSON.parse(data).user);
-                        window.location.href = './chat.php';
+
+                        if(status === 'success') {
+                            const message = JSON.parse(data).message;
+                            console.log(message);
+                            if(message === 'Erfolgreich eingeloggt.'){
+                                window.location.href = './chat.php';
+                            } else if(message === 'Benutzername oder Passwort unbekannt.') {
+                                feedback.text(message);
+                            } else {
+                                feedback.text('Ein unbekannter Fehler ist aufgetreten. Hab bitte Nachsicht mit dem Entwickler.');
+                            }
+                        } else {
+                            feedback.text('Ein unbekannter Fehler ist aufgetreten. Hab bitte Nachsicht mit dem Entwickler.');
+                        }
                     }
-                }
-            );
+                );
             } else {
-            $.post('./register.php', data,
-                function (data, status) {
-                        console.log(JSON.parse(data).username);
-                        let response = JSON.parse(data).username;
-                        feedback.text(response  + ' erfolgreich registriert.');
+                $.post('./register.php', data,
+                    function (data, status) {
+                        console.log(status);
+                        
+                        if(status === 'success') {
+                            const message = JSON.parse(data).message;
+                            if(message === 'Erfolgreich registriert. Bitte melde dich an.'){
+                                feedback.text(message);
+                            } else {
+                                feedback.text(message);
+                            }
+                        } else {
+                            feedback.text('Ein unbekannter Fehler ist aufgetreten. Hab bitte Nachsicht mit dem Entwickler.');
+                        }
                     }
                 );
             }

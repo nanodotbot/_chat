@@ -18,7 +18,7 @@ header#main-header {
   gap: calc(var(--default-gap) / 2);
 }
 header#main-header > p,
-header#main-header > #logout {
+header#main-header > #logout > span {
   font-size: var(--font-size-small);
 }
 form {
