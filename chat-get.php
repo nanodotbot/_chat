@@ -4,7 +4,4 @@ $statement = $pdo->prepare('SELECT posts.*, users.username FROM posts INNER JOIN
 $statement->execute();
 
 $response = $statement->fetchAll(PDO::FETCH_ASSOC);
-$response = json_encode($response);
-
-echo $response;
 ?>

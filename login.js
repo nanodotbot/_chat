@@ -45,7 +45,7 @@ const username = document.getElementById('username');
 const password = document.getElementById('password');
 
 btn.on('click',
-    function(e) {
+    async function(e) {
         e.preventDefault();
         e.stopPropagation();
         const usernameValue = username.value;
@@ -57,42 +57,44 @@ btn.on('click',
             }
             data = JSON.stringify(data);
             if (loginActive) {
-                $.post('./login.php', data,
-                    function (data, status) {
-                        console.log(status);
-
-                        if(status === 'success') {
-                            const message = JSON.parse(data).message;
-                            console.log(message);
-                            if(message === 'Erfolgreich eingeloggt.'){
-                                window.location.href = './chat.php';
-                            } else if(message === 'Benutzername oder Passwort unbekannt.') {
-                                feedback.text(message);
-                            } else {
-                                feedback.text('Ein unbekannter Fehler ist aufgetreten. Hab bitte Nachsicht mit dem Entwickler.');
-                            }
-                        } else {
-                            feedback.text('Ein unbekannter Fehler ist aufgetreten. Hab bitte Nachsicht mit dem Entwickler.');
-                        }
+                let response = await fetch('./login.php',{
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: data        
+                });
+                if(response.ok) {
+                    response = await response.json();
+                    const message = await response.message;
+                    console.log(message);
+                    if(message === 'Erfolgreich eingeloggt.'){
+                        window.location.href = './chat.php';
+                    } else if(message === 'Benutzername oder Passwort unbekannt.') {
+                        feedback.text(message);
+                    } else {
+                        feedback.text('Ein unbekannter Fehler ist aufgetreten. Hab bitte Nachsicht mit dem Entwickler.');
                     }
-                );
+                } else {
+                    feedback.text('Ein unbekannter Fehler ist aufgetreten. Hab bitte Nachsicht mit dem Entwickler.');
+                }
             } else {
-                $.post('./register.php', data,
-                    function (data, status) {
-                        console.log(status);
-                        
-                        if(status === 'success') {
-                            const message = JSON.parse(data).message;
-                            if(message === 'Erfolgreich registriert. Bitte melde dich an.'){
-                                feedback.text(message);
-                            } else {
-                                feedback.text(message);
-                            }
-                        } else {
-                            feedback.text('Ein unbekannter Fehler ist aufgetreten. Hab bitte Nachsicht mit dem Entwickler.');
-                        }
+                let response = await fetch('./register.php',{
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: data        
+                });
+                if(response.ok) {
+                    response = await response.json();
+                    const message = await response.message;
+                    console.log(message);
+                    if(message === 'Erfolgreich registriert. Bitte melde dich an.'){
+                        feedback.text(message);
+                    } else {
+                        feedback.text(message);
                     }
-                );
+                } else {
+                    feedback.text('Ein unbekannter Fehler ist aufgetreten. Hab bitte Nachsicht mit dem Entwickler.');
+                }
+
             }
         } else {
             feedback.text('Bitte Nutzername und Passwort eingeben.');

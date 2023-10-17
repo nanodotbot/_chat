@@ -1,46 +1,24 @@
-// fetch data
-
-const getData = () => {
-    $.get('get.php',
-        function (data, status) {
-            // console.log(status);
-            let response = data;
-            response = JSON.parse(response);
-            $('#posts').html('');
-            response.forEach(element => {
-                let date = new Date(element.created_at);
-                date = date.setTime(date.getTime() + 2 * 60 * 60 * 1000);
-                date = new Date(date);
-                const days = ["Sonntag", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag"];
-                const day = days[date.getDay()];
-                date = date.toLocaleString('de-CH');
-
-                $('#posts').append(
-                '<div class="post"><div class="meta"><p>' + element.username + '</p><p>' + day + ', ' + date + '</p></div><p>' + element.message + '</p></div><hr>');
-            });
-        }
-    )
-}
-getData();
-
 // post data
 
 const message = document.getElementById('message');
 
-const handleChat = () => {
+const handleChat = async () => {
     const messageValue = message.value;
     let data = {
         message: messageValue
     };
     data = JSON.stringify(data);
-    $.post('./post.php', data,
-        function (data, status) {
-            console.log(status);
-            data = JSON.parse(data);
-            console.log(data);
-            getData();
-        }
-    );
+    let response = await fetch('./chat-post.php', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: data
+    });
+    console.log(response);
+    if (response.ok) {
+        response = await response.json();
+        console.log(response);
+    }
+    location.reload()
     message.value = '';
 }
 
@@ -60,18 +38,54 @@ $('#send').on('click',
     }
 );
 
+
+// delete post
+
+const deleteButtons = document.querySelectorAll('.post-delete');
+const deleteModal = document.getElementById('delete-modal');
+
+deleteButtons.forEach((button, index) => {
+    button.onclick = () => {
+        const deletePostButton = document.getElementById('delete-post-confirmation');
+        const printInfo = document.getElementById('post-info');
+        const id = button.getAttribute('data-id');
+        const message = button.getAttribute('data-message');
+        printInfo.innerText = '«' + message.substring(0, 25) + '»';
+        deleteModal.classList.add('open');
+
+        deletePostButton.onclick = async () => {
+            let data = {
+                id: id,
+                message: message
+            };
+            data = JSON.stringify(data);
+            let response = await fetch('./chat-delete.php', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: data
+            });
+            console.log(response);
+            if (response.ok) {
+                response = await response.json();
+                console.log(response);
+                location.reload();
+            }        
+        };
+    };
+});
+
+
 // logout
 
-$('#logout').on('click', function () {
-    let data = {
-        message: 'here i am'
-    }
-    data = JSON.stringify(data);
-    $.get('./logout.php', data,
-        function (data, status) {
-            console.log(data);
-            console.log(status);
-            status === 'success' ? window.location.href = './index.php' : null;
+$('#logout').on('click', async function () {
+    try {
+        let response = await fetch('./logout.php');
+        if (response.ok) {
+            response = await response.json();
+            console.log(response);
+            window.location.href = './index.php';
         }
-    );
+    } catch (error) {
+        console.log(error);
+    }
 });

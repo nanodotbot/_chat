@@ -21,10 +21,12 @@ if ($response != null) {
     foreach($response as $item) {
         $userid = $item['id'];
         $user = htmlspecialchars($item['username']);
+        $description = htmlspecialchars($item['description']);
         if(password_verify($password, $item['password'])){
             session_start();
             $_SESSION['user'] = $user;
             $_SESSION['userid'] = $userid;
+            $_SESSION['description'] = $description;
         
             $message = 'Erfolgreich eingeloggt.';
             $json = '{

@@ -1,7 +1,7 @@
 header, main {
     position: relative;
     width: 700px;
-    max-width: 98vw;
+    max-width: 95vw;
     margin: 0 auto;
 }
 
@@ -16,12 +16,11 @@ header {
         align-items: center;
         justify-content: end;
         gap: calc(var(--default-gap) / 2);
-        > p, >#logout > span {
+        > a, >#logout > span {
             font-size: var(--font-size-small);
         }
     }
 }
-
 
 form {
     width: 100%;
@@ -30,56 +29,50 @@ form {
 
 // posts
 
-.post, hr {
-    margin-bottom: var(--default-gap);
+hr {
+    margin-top: calc(var(--default-gap) / 1.2);
+    margin-bottom: calc(var(--default-gap) / 1.2);
 }
 .meta {
     display: grid;
-    grid-template-columns: 1fr auto;
-}
-.meta > p {
-    font-size: var(--font-size-small);
+    grid-template-columns: auto max-content;
+    align-items: center;
+    gap: var(--default-gap);
+
+    > .meta-right {
+        display: grid;
+        grid-template-columns: max-content max-content;
+
+        > .date {
+            font-size: var(--font-size-smallest);
+        }
+        > .post-delete > svg {
+            height: 17px;
+            width: 17px;
+        }
+        > .post-delete:hover > svg {
+            fill: var(--error-light);
+        }
+    }
+    > .meta-user {
+       overflow: hidden;
+       text-align: left;
+       > a {
+            font-size: var(--font-size-small);
+       }
+    }
 }
 
 // theme modal
 
-#theme-modal {
-    height: 100vh;
-    // https://stackoverflow.com/questions/33606565/is-it-possible-to-calculate-the-viewport-width-vw-without-scrollbar
-    width: calc(100vw - (100vw - 100%));
-
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 6;
-    
-    display: none;
-    justify-content: center;
-
-    background-color: var(--background);
-}
-#theme-modal.open {
-    display: grid;
-}
-
-#theme-header {
-    align-self: start;
-}
-
 #theme {
     height: min-content;
-    width: 700px;
-    max-width: 98vw;
-
-    padding: var(--default-gap) 0;
-    margin: 0 auto;
 
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-
-    background-color: var(--background);
+    padding: 0 var(--default-gap) var(--default-gap) var(--default-gap);
 }
 
 .theme-picker, .color-picker {
@@ -95,5 +88,21 @@ form {
     justify-content: center;
     > p {
         width: min-content;
+    }
+}
+
+#save-theme-meta {
+    display: grid;
+    grid-template-columns: max-content max-content;
+    align-items: center;
+    gap: var(--default-gap);
+}
+
+@media screen and (max-width: 330px) {
+    .meta {
+        grid-template-columns: unset;
+        grid-template-rows: auto max-content;
+        gap: 0;
+        margin-bottom: calc(var(--default-gap) / 4);
     }
 }
