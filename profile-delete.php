@@ -13,8 +13,8 @@ $statement2->execute();
 $message = $user . ' destroyed.';
 
 // TODO: add to productive
-// $mail_message = wordwrap($message, 70);
-// mail('info@nano.sx', 'chat', $mail_message);
+$mail_message = wordwrap($message, 70);
+mail('info@nano.sx', 'chat', $mail_message);
 
 session_unset();
 session_destroy();

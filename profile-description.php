@@ -15,11 +15,11 @@ $statement->bindParam(':userid', $userid);
 $statement->execute();
 
 // TODO: add to productive
-// $mail_message = wordwrap($message, 70);
-// mail('info@nano.sx', 'description', $mail_message);
+$mail_message = wordwrap($message, 70);
+mail('info@nano.sx', 'description', $mail_message);
 
 $data = '{
-    "message": "' . $message . '"
+    "message": "Beschreibung gespeichert."
 }';
 echo $data;
 ?>

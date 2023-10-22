@@ -23,6 +23,7 @@ saveDescription.onclick = async e => {
         descriptionFeedback.innerText = response.message;
     }
 }
+description.oninput = () => descriptionFeedback.innerText = '';
 
 // handle passwords
 
@@ -61,6 +62,12 @@ savepw.onclick = async e => {
         passwordFeedback.innerText = response.message;
     }
 }
+oldpw.on('input', function () {
+    passwordFeedback.innerText = '';
+});
+newpw.on('input', function () {
+    passwordFeedback.innerText = '';
+});
 
 // delete account
 

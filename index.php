@@ -1,9 +1,5 @@
 <?php
 session_start();
-// TODO: add to productive
-// $ip = $_SERVER['REMOTE_ADDR']	;
-// $mail_message = wordwrap($ip, 70);
-// mail('info@nano.sx', 'miau', $mail_message);
 if (!isset($_SESSION['user'])){
 ?>
 <!DOCTYPE html>
@@ -28,6 +24,9 @@ if (!isset($_SESSION['user'])){
 
     <script src="./login.js" defer></script>
     
+    <!-- TODO: add to productive -->
+    <script src="tell-me-something.js" defer></script>
+
     <link rel="icon" type="image/png" href="./imgs/favicon.ico">
 </head>
 
@@ -84,7 +83,7 @@ if (!isset($_SESSION['user'])){
             <div class="modal-body">
 
                 <h2>Datenschutzhinweis</h2>
-                <p>Nutzername und Passwort werden in einer passwortgeschützten Datenbank bei Hoststar in der Schweiz gepeichert, das Passwort verschlüsselt. Es wird empfohlen, anonyme Angaben zu machen, auch wenn die Daten lediglich zum Anmelden und der Nutzername beim Posten von Chatnachrichten verwendet werden. Chatnachrichten und der damit verbundene Nutzername sind für jeden, der angemeldet ist, ersichtlich. </p>
+                <p>Nutzername und Passwort werden in einer passwortgeschützten Datenbank bei Hoststar in der Schweiz gepeichert, das Passwort verschlüsselt. Es wird empfohlen, anonyme Angaben zu machen, auch wenn die Daten lediglich zum Anmelden und der Nutzername in den Chatnachrichten verwendet werden. Chatnachrichten und der damit verbundene Nutzername sind für jeden, der angemeldet ist, ersichtlich.</p>
                 <p>Die Datenschutzerklärung von Hoststar kann hier eingesehen werden: <a href="https://www.hoststar.ch/de/datenschutz" target="_blank" rel="noopener noreferrer">https://www.hoststar.ch/de/datenschutz</a></p>
 
             </div>

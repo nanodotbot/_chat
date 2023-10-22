@@ -62,7 +62,7 @@ btn.on('click',
         e.stopPropagation();
         const usernameValue = username.value;
         const passwordValue = password.value;
-        if (register && !dataProtectionAgreement.checked){
+        if (!loginActive && !dataProtectionAgreement.checked){
             feedback.text('Akzeptieren Sie bitte den Datenschutzhinweis.');
             return;
         }
