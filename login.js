@@ -19,11 +19,13 @@ let feedback = $('#feedback');
 const login = $('#login');
 const register = $('#register');
 const btn = $('#login-btn');
+const dataProtection = $('#data-protection');
 
 login.on('click',
     function() {
         login.addClass('active');
         register.removeClass('active');
+        dataProtection.removeClass('open');
         btn.text('Anmelden');
         loginActive = true;
         feedback.text('');
@@ -33,16 +35,26 @@ register.on('click',
     function() {
         login.removeClass('active');
         register.addClass('active');
+        dataProtection.addClass('open');
         btn.text('Registrieren');
         loginActive = false;
         feedback.text('');
     }
 );
 
+const dataProtectionBtn = document.getElementById('data-protection-button');
+const modalDataProtection = document.getElementById('modal-data-protection');
+
+dataProtectionBtn.onclick = e => {
+    e.preventDefault();
+    modalDataProtection.classList.add('open');
+}
+
 // handle login / register
 
 const username = document.getElementById('username');
 const password = document.getElementById('password');
+const dataProtectionAgreement = document.getElementById('toggle-data-protection-agreement');
 
 btn.on('click',
     async function(e) {
@@ -50,6 +62,10 @@ btn.on('click',
         e.stopPropagation();
         const usernameValue = username.value;
         const passwordValue = password.value;
+        if (register && !dataProtectionAgreement.checked){
+            feedback.text('Akzeptieren Sie bitte den Datenschutzhinweis.');
+            return;
+        }
         if (usernameValue && passwordValue) {
             let data = {
                 username: usernameValue,
@@ -65,7 +81,7 @@ btn.on('click',
                 if(response.ok) {
                     response = await response.json();
                     const message = await response.message;
-                    console.log(message);
+                    // console.log(message);
                     if(message === 'Erfolgreich eingeloggt.'){
                         window.location.href = './chat.php';
                     } else if(message === 'Benutzername oder Passwort unbekannt.') {
@@ -85,7 +101,7 @@ btn.on('click',
                 if(response.ok) {
                     response = await response.json();
                     const message = await response.message;
-                    console.log(message);
+                    // console.log(message);
                     if(message === 'Erfolgreich registriert. Bitte melde dich an.'){
                         feedback.text(message);
                     } else {

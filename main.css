@@ -504,6 +504,13 @@ code > span {
 
 /* Toggle */
 
+div.toggle {
+    display: grid;
+    grid-template-columns: max-content max-content;
+    align-items: center;
+    gap: var(--default-gap);
+}
+
 .toggle-input {
     display: none;
 }
